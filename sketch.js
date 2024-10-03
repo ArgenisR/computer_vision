@@ -40,6 +40,10 @@ function draw() {
 
   text(confianza, 10, height - 4);
   textAlign(LEFT);
+
+  if (label == "tomatodo" && confianza >= 0.9) {
+    background(255, 200, 0);
+  }
 }
 
 // Get a prediction for the current video frame
