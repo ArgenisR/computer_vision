@@ -8,6 +8,7 @@ let video;
 let flippedVideo;
 // To store the classification
 let label = "";
+let confianza = 0;
 
 // Load the model first
 function preload() {
@@ -21,7 +22,7 @@ function setup() {
   video.size(320, 240);
   video.hide();
 
-  flippedVideo = ml5.flipImage(video);
+  //flippedVideo = ml5.flipImage(video);
   // Start classifying
   classifyVideo();
 }
@@ -29,32 +30,35 @@ function setup() {
 function draw() {
   background(0);
   // Draw the video
-  image(flippedVideo, 0, 0);
+  image(video, 0, 0);
 
   // Draw the label
   fill(255);
   textSize(16);
   textAlign(CENTER);
   text(label, width / 2, height - 4);
+
+  text(confianza, 10, height - 4);
+  textAlign(LEFT);
 }
 
 // Get a prediction for the current video frame
 function classifyVideo() {
-  flippedVideo = ml5.flipImage(video);
-  classifier.classify(flippedVideo, gotResult);
-  flippedVideo.remove();
+  classifier.classify(video, gotResult);
 }
 
 // When we get a result
-function gotResult(error, results) {
+function gotResult(results, error) {
   // If there is an error
   if (error) {
     console.error(error);
     return;
   }
+
   // The results are in an array ordered by confidence.
   // console.log(results[0]);
   label = results[0].label;
+  confianza = results[0].confidence;
   // Classifiy again!
   classifyVideo();
 }
