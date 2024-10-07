@@ -16,10 +16,14 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  createCanvas(640, 480);
   // Create the video
   video = createCapture(VIDEO);
-  video.size(windowWidth, windowHeight);
+  video.size(640, 480);
+  video.position(
+    (windowWidth - video.width) / 2,
+    (windowHeight - video.height) / 2
+  );
   video.hide();
 
   //flippedVideo = ml5.flipImage(video);
@@ -42,7 +46,12 @@ function draw() {
   textAlign(LEFT);
 
   if (label == "tomatodo" && confianza >= 0.9) {
-    background(255, 200, 0);
+    filter(BLUR);
+    filter(POSTERIZE);
+    fill(0);
+    textSize(40);
+    textAlign(CENTER);
+    text("TOMA AWA", width / 2, height / 2);
   }
 }
 
