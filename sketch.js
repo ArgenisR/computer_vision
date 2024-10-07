@@ -53,6 +53,15 @@ function draw() {
     textAlign(CENTER);
     text("TOMA AWA", width / 2, height / 2);
   }
+  if (label == "celular" && confianza >= 0.9) {
+    fill(0, 255, 0); // Color verde de la matriz
+    textSize(40);
+    textAlign(CENTER);
+    for (let i = 0; i < width; i += 40) {
+      let letter = char(0x30a0 + int(random(0, 96))); // Caracteres aleatorios
+      text(letter, i, random(height));
+    }
+  }
 }
 
 // Get a prediction for the current video frame
